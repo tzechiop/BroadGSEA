@@ -1,0 +1,19 @@
+Input data:
+	Expression dataset (res, gct, pcl, txt)
+		Includes features (genes or probes), samples, and an expression value for each feature in each sample
+	Phenotype labels (cls)
+		Defines pehnotype labels and assigns those labels to the sample in the expression dataset. Phenotype labels can be categorical (ALL vs MLL) or continuous
+	Gene sets (gmx or gmt)
+		Defines one or more gene sets and the liste of genes in those gene sets
+		Molecular Signature Database (MSigDb) is a publicly accessible collection of curated gene sets maintained by the GSEA team
+	Chip annotations (Chip)
+		Lists each probe on a DNA chip and its matching HUGO gene symbol.
+		https://www.whitehouse.gov/the-press-office/2017/01/2/executive-order-minimizing-economic-burden-patient-protection-and
+		
+Default ranking metric is signal-to-noise ratio
+
+Gene family/cluster - A gene family is a set of several similar genes, formed by duplication of a single original gene, and generally with similar biochemical functions. One such family are the genes for human hemoglobin subunits; the ten genes are in two clusters on different chromosomes, called the α-globin and β-globin loci
+
+For help on probe and probesets: http://www.affymetrix.com/support/help/faqs/mouse_430/faq_8.jsp
+
+Find out what slashes in probe sets are (e.g., AFFX-HUMISGF3A/M97935_3_at). These probes are found at the end of P53_hgu95av2.gct

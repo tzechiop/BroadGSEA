@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<jnlp spec="1.0+" codebase="http://software.broadinstitute.org/gsea/software/" href="gsea.jnlp?servletPath=http%3A%2F%2Fsoftware.broadinstitute.org%2Fgsea&heap=1024">
+  <information>
+    <title>Gene set enrichment analysis (GSEA)</title>
+    <vendor>Broad Institute of MIT and Harvard</vendor>
+    <homepage href="http://software.broadinstitute.org/gsea/"/>
+    <description>Launch the GSEA software</description>
+    <description kind="short">Launch the GSEA software</description>
+    <description kind="tooltip">Launch GSEA</description>
+    <icon href="XBench32x32.gif" width="32" height="32" />
+    <icon href="XBench64x64.gif" width="64" height="64" />
+    <icon href="gsea_splash.jpg" kind="splash"/>
+    <offline-allowed/>
+    <shortcut online="true">
+      <desktop/>
+      <menu submenu="GSEA"/>
+    </shortcut>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.6+" java-vm-args="-Xdock:name=GSEA" 
+      initial-heap-size="128m" max-heap-size="1024m"/>
+    <jar href="gsea2-2.2.3.jar" />
+    <property name="com.apple.macos.useScreenMenuBar" value="true"/>
+    <property name="debug" value="false"/>
+  </resources>
+  <application-desc main-class="xapps.gsea.Main"/>
+</jnlp>
