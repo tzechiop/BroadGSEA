@@ -17,6 +17,10 @@ gset_fname = 'chr3q29.gmt'
 
 # Read probe rank file
 ranks = pd.read_table(ranks_fname)
+N = ranks.shape[0]
+
+# Specify parameters
+p = 1
 
 # Read probe 2 gene converter
 probe2gene = {}
@@ -38,12 +42,33 @@ with open(gset_fname) as f:
 
 # Cut off header from gene set file
 gset = gset[2:]
+N_H = len(gset)
+
+# Find all genes in geneset to calculate N_R
+N_R = 0
+hitcount = 0
+for [probe, rval] in zip(ranks['NAME'], ranks['R']):
+    genes = probe2gene[probe]
+    for gene in genes:
+        if gene in gset:
+            N_R += abs(rval)**p
+            hitcount += 1
+            break
+        
+print('Hitcount = {0}'.format(hitcount))
+print('N_R = {0:.3f}'.format(N_R))
 
 # Go through each probe and calculate running sum
-rsum = 0
 count = 0
+rsum = 0
+pval = 0
 rsum_list = []
-for [probe, score] in zip(ranks['NAME'], ranks['ES']):
+pval_list = []
+rank_list = []
+hitgene_list = []
+probe_list = []
+hitrval_list = []
+for index, (probe, rval) in enumerate(zip(ranks['NAME'], ranks['R'])):
     genes = probe2gene[probe]
     
     # Look for the gene in the gene set
@@ -57,9 +82,19 @@ for [probe, score] in zip(ranks['NAME'], ranks['ES']):
     # decrease the running sum        
     if trigger:
         count += 1
-        rsum += score
-        print(gene)
+        cur_pval = abs(rval)**p/N_R
+        rank_list.append(index + 1)
+        hitgene_list.append(gene)
+        probe_list.append(probe)
+        hitrval_list.append(rval)
     else:
-        rsum -= score
-        
+        cur_pval = -1/(N - N_H)
+
+    # Calculate running sum        
+    rsum += cur_pval
+
+    pval_list.append(cur_pval)        
     rsum_list.append(rsum)
+    
+ranks['Pval'] = pval_list
+ranks['Rsum'] = rsum_list
